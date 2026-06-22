@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script  src="../../libs/js/ap_svg.js"> </script>
+	<script  src="./constructor.js"> </script>
+	<script  src="./scheme.js"> </script>
+	<script  src="./points.js"> </script>
+	<title>demo1</title>
+</head>
+<body>
+
+		<div id="scheme-oven" style="height:100%; width:100%">
+
+		</div>
+
+<script>
+		
+
+		
+
+document.addEventListener('DOMContentLoaded', () => {
+	var s = new svg_ap(_OVEN_);
+  	setInterval(()=>{
+
+  		let data = {};
+
+  		for(let i in _OVEN_.points)
+  		{
+  			data[i] = Math.floor(Math.random() * 100) + 1;
+  		}
+
+  		data['work'] = Math.floor(Math.random() * 65535) + 1;;
+
+ 		s.new_data(data);
+
+ 		//s.get_object('pech_pipe').value(65535);
+
+  	}, 2000);
+});
+
+
+//
+
+
+/*		s.websocket({
+			     ip:'<?=$ip_server?>', 
+    			 cmd_send:'subscription' 
+		});
+		s.websocket.connect();*/
+</script>
+
+</body>
+</html>
