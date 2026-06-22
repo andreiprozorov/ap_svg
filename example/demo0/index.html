@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script  src="../../libs/js/ap_svg.js"> </script>
+	<title>demo1</title>
+</head>
+
+<style>
+body {
+    background: none repeat scroll 0 0 #333;
+    color: #fff;
+    font: 300 100.1% "Helvetica Neue",Helvetica,"Arial Unicode MS",Arial,sans-serif;  
+}
+
+#svg {
+    height: 480px;
+    left: 50%;
+    margin: -240px 0 0 -320px;
+    position: absolute;
+    top: 50%;
+    width: 640px;
+}
+</style>
+
+<body>
+ <div id="svg"></div>
+
+<script>
+
+var ap = new svg_ap({
+    box:'svg',
+    style:{width:600, height:480}
+});
+
+angle = 0;
+colors = ['#bf0000','#bf5600','#bfac00','#7cbf00','#26bf00','#00bf2f','#00bf85','#00a2bf','#004cbf','#0900bf','#5f00bf','#b500bf'];
+color = 0;                   
+while (angle < 360) {
+    (function (t, c) { 
+        ap.obj({type:'circle', attr:{cx:320, cy:450, r:20, cursor:'pointer', 'box-shadow':'-2 -2 1 black', fill:c, stroke: c,"fill-opacity": .4},
+        rotate:{angle:t, rx:320, ry:250},
+        animate:{attr:{"fill-opacity": 0.7}, dur:400, begin:'mouseover', end:'mouseout', revers:'true'}
+        });
+        
+      ap.obj({type:'circle'}).attr({cx:320, cy:450, r:20, cursor:'pointer', 'box-shadow':'-2 -2 1 black', fill:c, stroke: c,"fill-opacity": .4}).rotate(t, 320, 250).mouseover(function(){
+        this.animate({"fill-opacity": 0.7}, 400);        
+      }).mouseout(function(){
+        this.animate({"fill-opacity": 0.4}, 400);      
+      }).click(function(){
+        s.rotate({rx:320, ry:250, to:t, home:'false', dur:2000, count:1, delta:'bounce', effect:'out' });
+        s.animate({stroke: c},1000);
+        this.scale({to:'1.2', count:1, home:'false', revers:'true'});
+      });    
+        
+    })(angle, colors[color]);
+    color += 1;
+    angle += 30;
+}
+var s = ap.obj({});
+
+  s.append(s.svg.create('path', {d:'M320,240c-50,100,50,110,0,190', fill: "none", "stroke-width": 2} ))   
+  s.append_object(ap.obj({
+    type:'circle', attr:{cx:320, cy:450, r:20, fill: "none", "stroke-width": 2,'box-shadow':'-2 -2 1 black'}
+  }));
+  s.append_object(ap.obj({
+    type:'circle', attr:{cx:320, cy:240, r:5, fill: "none", "stroke-width": 10}
+  }));
+  s.attr({'stroke':colors[0]});
+
+
+ap.obj('circle').attr({
+    cx:680, cy:240, fill:'r(60,60,60)-white-blue', "stroke-width": 3,'stroke':'black', r:30, cursor:'pointer' 
+}).scale({to:1.9, begin:'click', delta:'elastic', effect:'in_out', count:1,restart:'false', home:'false', k:5, dur:7000, revers:'true'}).motion({
+    to:'0,250', dur:7000,delta:'elastic',begin:'click',home:'false',count:1, k:5, effect:'in_out', restart:'false', revers:'true'
+}).mouseover(function(){
+    this.attr({fill:'r(50,50,60)-white-blue'});
+}).mouseout(function(){
+    this.attr({fill:'r(60,60,60)-white-blue'});
+}).click(function(){
+    this.attr({fill:'r(60,60,60)-white-yellow'});
+});  
+  
+    
+
+</script>
+</body>
+</html>
